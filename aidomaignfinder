@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Domain Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.3/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pacifico', cursive;
+            background-color: #d9f0ff;
+            color: #2d3748;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #a3d5ff;
+            border-radius: 8px;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+        footer a {
+            color: #f56565;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl mb-6">Find Your AI Platform</h1>
+        <form id="aiForm">
+            <div class="mb-4">
+                <label for="typeOfAi" class="block text-lg">Type of AI assistance needed:</label>
+                <input type="text" id="typeOfAi" class="w-full p-2 mt-1 bg-gray-800 text-white rounded">
+            </div>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Find AI Platforms
+            </button>
+        </form>
+        <div id="output" class="output"></div>
+    </div>
+    
+    <script>
+        document.getElementById('aiForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const typeOfAi = document.getElementById('typeOfAi').value;
+            const substitutedPrompt = `generate a list of AI platforms available for ${typeOfAi} domain.`;
+
+            const output = document.getElementById('output');
+            output.innerText = ""; // Clear output section first
+
+            const websocket = new WebSocket('wss://backend.buildpicoapps.com/ask_ai_streaming_v2');
+
+            websocket.addEventListener('open', () => {
+                websocket.send(JSON.stringify({
+                    appId: "rise-high",
+                    prompt: substitutedPrompt,
+                }));
+            });
+
+            websocket.addEventListener('message', (event) => {
+                console.log(event.data);
+                output.innerText += event.data; // Append message data to output
+            });
+
+            websocket.addEventListener('close', (event) => {
+                console.log("Connection closed", event.code, event.reason);
+                if (event.code != 1000) {
+                    alert("Oops, we ran into an error. Refresh the page and try again.");
+                }
+            });
+
+            websocket.addEventListener('error', (error) => {
+                console.log('WebSocket error', error);
+                alert("Oops, we ran into an error. Refresh the page and try again.");
+            });
+        });
+    </script>
+</body>
+</html>
