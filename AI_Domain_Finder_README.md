@@ -38,10 +38,11 @@ AI Domain Finder is a web-based application that leverages artificial intelligen
    ```
 3. Enter your preferences and get AI-recommended domain names!
 
-## Technologies
+## Technical Stack
 - Python
 - Flask
 - Machine Learning
+- Html
 
 ## Contributing
 Contributions are welcome! Fork the repository, make your changes, and submit a pull request.
