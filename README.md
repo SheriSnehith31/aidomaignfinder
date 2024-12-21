@@ -22,21 +22,6 @@ AI Domain Finder is a web-based application that leverages artificial intelligen
    ```bash
    cd aidomaignfinder
    ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Usage
-1. Start the Flask server:
-   ```bash
-   python app.py
-   ```
-2. Open your web browser and go to:
-   ```
-   http://127.0.0.1:5000/
-   ```
-3. Enter your preferences and get AI-recommended domain names!
 
 ## Technical Stack
 - Python
