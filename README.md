@@ -23,7 +23,7 @@ AI Domain Finder is a web-based application that leverages artificial intelligen
    cd aidomaignfinder
    ```
 
-## Technical Stack
+## Technnologies used
 - Python
 - Flask
 - Machine Learning
